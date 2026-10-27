@@ -6,17 +6,18 @@ export default async function handler(req, res) {
   try {
     const { message } = req.body;
 
-    // Using google/flan-t5-base (no agreement required!)
-    const response = await fetch("https://router.huggingface.co/hf-inference/models/google/flan-t5-base", {
+    // Using Mistral v0.3 (Supported on free Inference Providers)
+    const response = await fetch("https://router.huggingface.co/hf-inference/models/mistralai/Mistral-7B-Instruct-v0.3", {
       headers: {
         Authorization: `Bearer ${process.env.HF_TOKEN}`,
         "Content-Type": "application/json",
       },
       method: "POST",
       body: JSON.stringify({
-        inputs: message,
+        inputs: `<s>[INST] You are Nova, a helpful AI assistant. Answer briefly: ${message} [/INST]`,
         parameters: { 
-          max_new_tokens: 200,
+          max_new_tokens: 500, 
+          return_full_text: false,
           temperature: 0.7 
         }
       }),
@@ -36,7 +37,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: result.error });
     }
 
-    // Extract the reply (flan-t5 returns generated_text directly)
+    // Extract the reply
     const reply = result[0].generated_text.trim();
     res.status(200).json({ reply });
     
