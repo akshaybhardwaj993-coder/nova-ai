@@ -6,15 +6,15 @@ export default async function handler(req, res) {
   try {
     const { message } = req.body;
 
-    // Using Mistral v0.3 (Supported on free Inference Providers)
-    const response = await fetch("https://router.huggingface.co/hf-inference/models/mistralai/Mistral-7B-Instruct-v0.3", {
+    // Using Zephyr-7B (Free, Fast, No License Agreement Needed)
+    const response = await fetch("https://router.huggingface.co/hf-inference/models/HuggingFaceH4/zephyr-7b-beta", {
       headers: {
         Authorization: `Bearer ${process.env.HF_TOKEN}`,
         "Content-Type": "application/json",
       },
       method: "POST",
       body: JSON.stringify({
-        inputs: `<s>[INST] You are Nova, a helpful AI assistant. Answer briefly: ${message} [/INST]`,
+        inputs: `<|system|>\nYou are Nova, a helpful AI assistant.</s>\n<|user|>\n${message}</s>\n<|assistant|>\n`,
         parameters: { 
           max_new_tokens: 500, 
           return_full_text: false,
