@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nova AI — Your Intelligent Assistant</title>
+<meta name="description" content="A thoughtful AI assistant for writing, analysis, and creative work. Launching on Product Hunt." />
+
+<!-- Monetag Script (replace YOUR_PUBLISHER_ID) -->
+<script src="//www.googletagmanager.com/gtag/js?id=YOUR_PUBLISHER_ID" async></script>
+<script>
+  window.monetag = window.monetag || {};
+  window.monetag.pubId = "YOUR_PUBLISHER_ID";
+</script>
+<script src="//cdn.monetag.com/loader.js" async></script>
+
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --surface: #ffffff;
+    --text: #1a1a1a;
+    --muted: #6b6b6b;
+    --accent: #c96442;
+    --accent-hover: #a8502f;
+    --border: #e5ddd0;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 2rem; max-width: 1200px; margin: 0 auto;
+  }
+  .logo { font-weight: 700; font-size: 1.3rem; color: var(--accent); }
+  .nav-links a {
+    margin-left: 1.5rem; text-decoration: none; color: var(--text);
+    font-size: 0.95rem;
+  }
+  .hero {
+    text-align: center; padding: 4rem 2rem 2rem; max-width: 800px; margin: 0 auto;
+  }
+  .hero h1 { font-size: 3rem; margin-bottom: 1rem; letter-spacing: -0.02em; }
+  .hero p { font-size: 1.15rem; color: var(--muted); margin-bottom: 2rem; }
+  .cta {
+    display: inline-block; padding: 0.85rem 1.8rem;
+    background: var(--accent); color: white; border-radius: var(--radius);
+    text-decoration: none; font-weight: 600; transition: background 0.2s;
+  }
+  .cta:hover { background: var(--accent-hover); }
+
+  /* Ad slot */
+  .ad-slot {
+    max-width: 728px; margin: 2rem auto; padding: 1rem;
+    background: var(--surface); border: 1px dashed var(--border);
+    border-radius: var(--radius); text-align: center; color: var(--muted);
+    font-size: 0.85rem; min-height: 90px;
+  }
+
+  /* Chat demo */
+  .chat-wrap {
+    max-width: 800px; margin: 3rem auto; background: var(--surface);
+    border-radius: var(--radius); box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    overflow: hidden;
+  }
+  .chat-header {
+    padding: 1rem 1.5rem; border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+  .chat-body { padding: 1.5rem; min-height: 300px; }
+  .msg { margin-bottom: 1rem; padding: 0.75rem 1rem; border-radius: 8px; max-width: 80%; }
+  .msg.user { background: #f0e8dc; margin-left: auto; }
+  .msg.ai { background: #faf6ef; border: 1px solid var(--border); }
+  .chat-input {
+    display: flex; border-top: 1px solid var(--border); padding: 1rem;
+  }
+  .chat-input input {
+    flex: 1; padding: 0.75rem 1rem; border: 1px solid var(--border);
+    border-radius: 8px; font-size: 1rem; outline: none;
+  }
+  .chat-input button {
+    margin-left: 0.5rem; padding: 0 1.25rem; background: var(--accent);
+    color: white; border: none; border-radius: 8px; cursor: pointer;
+    font-weight: 600;
+  }
+
+  .ph-banner {
+    background: #da552f; color: white; text-align: center;
+    padding: 0.75rem; font-weight: 600;
+  }
+  .ph-banner a { color: white; text-decoration: underline; }
+
+  footer {
+    text-align: center; padding: 2rem; color: var(--muted); font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="ph-banner">
+  🚀 We're live on Product Hunt — <a href="#" id="phLink">Upvote us!</a>
+</div>
+
+<nav class="nav">
+  <div class="logo">Nova AI</div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#chat">Try it</a>
+    <a href="#" class="cta" style="padding:0.5rem 1rem;">Sign Up</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Think clearly. Write better.</h1>
+  <p>Nova is an AI assistant designed for depth — research, writing, code, and creative work, all in one thoughtful conversation.</p>
+  <a href="#chat" class="cta">Start a Conversation</a>
+</section>
+
+<!-- Monetag Banner Ad -->
+<div class="ad-slot" data-monetag-ad="banner-728x90">
+  <!-- Monetag auto-renders here -->
+  Ad space
+</div>
+
+<section class="chat-wrap" id="chat">
+  <div class="chat-header">💬 Try Nova</div>
+  <div class="chat-body" id="chatBody">
+    <div class="msg ai">Hi! I'm Nova. Ask me anything — I'll do my best to help.</div>
+  </div>
+  <form class="chat-input" id="chatForm">
+    <input type="text" id="userInput" placeholder="Ask Nova something..." autocomplete="off" />
+    <button type="submit">Send</button>
+  </form>
+</section>
+
+<!-- Monetag In-Feed Ad -->
+<div class="ad-slot" data-monetag-ad="infeed-1">Ad space</div>
+
+<footer>
+  © 2026 Nova AI · <a href="#" style="color:var(--muted);">Privacy</a> · <a href="#" style="color:var(--muted);">Terms</a>
+</footer>
+
+<script>
+  // Demo chat (replace with real API call to your backend)
+  const form = document.getElementById('chatForm');
+  const body = document.getElementById('chatBody');
+  const input = document.getElementById('userInput');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const text = input.value.trim();
+    if (!text) return;
+
+    body.insertAdjacentHTML('beforeend', `<div class="msg user">${text}</div>`);
+    input.value = '';
+    body.scrollTop = body.scrollHeight;
+
+    // TODO: Replace with fetch('/api/chat', { method:'POST', body: JSON.stringify({message:text}) })
+    setTimeout(() => {
+      body.insertAdjacentHTML('beforeend',
+        `<div class="msg ai">Great question! In production, this would call your AI backend. Try asking me about Product Hunt launches or AI integrations.</div>`);
+      body.scrollTop = body.scrollHeight;
+    }, 700);
+  });
+</script>
+
+</body>
+</html>
