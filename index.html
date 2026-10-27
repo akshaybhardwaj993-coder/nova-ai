@@ -164,12 +164,33 @@
     input.value = '';
     body.scrollTop = body.scrollHeight;
 
-    // TODO: Replace with fetch('/api/chat', { method:'POST', body: JSON.stringify({message:text}) })
-    setTimeout(() => {
-      body.insertAdjacentHTML('beforeend',
-        `<div class="msg ai">Great question! In production, this would call your AI backend. Try asking me about Product Hunt launches or AI integrations.</div>`);
-      body.scrollTop = body.scrollHeight;
-    }, 700);
+    // Show a "thinking" message
+const loadingMsg = document.createElement('div');
+loadingMsg.className = 'msg ai';
+loadingMsg.textContent = 'Nova is thinking...';
+body.appendChild(loadingMsg);
+body.scrollTop = body.scrollHeight;
+
+try {
+  const response = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: text })
+  });
+  
+  loadingMsg.remove(); // Remove "thinking" message
+  const data = await response.json();
+  
+  if (data.error) {
+    body.insertAdjacentHTML('beforeend', `<div class="msg ai">⚠️ ${data.error}</div>`);
+  } else {
+    body.insertAdjacentHTML('beforeend', `<div class="msg ai">${data.reply}</div>`);
+  }
+} catch (error) {
+  loadingMsg.remove();
+  body.insertAdjacentHTML('beforeend', `<div class="msg ai">⚠️ Network error. Please try again.</div>`);
+}
+body.scrollTop = body.scrollHeight;
   });
 </script>
 
